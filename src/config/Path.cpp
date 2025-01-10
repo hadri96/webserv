@@ -18,7 +18,10 @@ Path::Path(const Path& other) :
 Path::Path(const std::string path) :
 	path_(path),
 	absPath_(getWorkingDirectory() + path_)
-{}
+{
+	Logger::logger()->log(LOG_DEBUG, "created path instance for : " + path_);
+	Logger::logger()->log(LOG_DEBUG, "abs path is : " + absPath_);
+}
 
 Path::~Path(void)
 {}

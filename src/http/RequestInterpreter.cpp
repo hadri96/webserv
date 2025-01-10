@@ -89,14 +89,16 @@ HttpResponse    RequestInterpreter::handleGetRequest(Config& config, HttpRequest
     // check if resource exists within server -->
     if (!fullPath.isInFileSystem())
     {
-        ErrorPage       errorPage = config.getErrorPage(500);
-        
-        return (errorPage);
+        ErrorPage   errorPage = config.getErrorPage(404);
+        Logger::logger()->log(LOG_DEBUG, "error code : " + toString(errorPage.getErrorCode()));
+        return (HttpResponse(errorPage));
     }
-
-    File            requestedResource(fullPath);
+    else
+    {
+        File            requestedResource(fullPath);
+        return (HttpResponse(requestedResource));
+    }
     
-    return (HttpResponse(requestedResource));
 
     // check if redirection 
     // get filepath or redirection path

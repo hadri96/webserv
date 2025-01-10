@@ -45,8 +45,9 @@ int	main(void)
 	c1.setRedirection(HttpRedirection(301, Uri("/redirection.html")));
 
 	// Error Pages
-	c1.addErrorPage(ErrorPage(404, Path("/www/404.html")));
-	c1.addErrorPage(ErrorPage(403, Path("/www/403.html")));
+	c1.addErrorPage(ErrorPage(404, Path("/www/errors/404.html")));
+	c1.addErrorPage(ErrorPage(403, Path("/www/errors/403.html")));
+	c1.getErrorPage(404);
 
 	// Routes
 	r1.setUri(Uri("/html"));

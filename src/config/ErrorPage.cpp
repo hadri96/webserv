@@ -6,7 +6,7 @@
 
 ErrorPage::ErrorPage(void) :
 	errorCode_(500),
-	errorFile_(File(Path("www/errors/500.html")))
+	errorFile_(File(Path("/www/errors/500.html"))) // needs to be modified to be based on the error code
 {}
 
 ErrorPage::ErrorPage(const ErrorPage& other) :
@@ -17,7 +17,9 @@ ErrorPage::ErrorPage(const ErrorPage& other) :
 ErrorPage::ErrorPage(int error, const Path& path) :
 	errorCode_(error),
 	errorFile_(File(path))
-{}
+{
+	Logger::logger()->log(LOG_DEBUG, "created ErrorPage instance for " + path.getAbsPath());
+}
 
 ErrorPage::~ErrorPage(void)
 {}
@@ -67,5 +69,5 @@ const Path&	ErrorPage::getErrorPath(void) const
 
 const std::string	ErrorPage::read(void) const
 {
-	return (errorFile_.read());
+	return (getErrorFile().read());
 }

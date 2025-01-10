@@ -22,7 +22,10 @@ File::File(const std::string& filename)
 		throw std::runtime_error("File could not be opened");
 }
 
-File::File(const Path& path) : path_(path) {}
+File::File(const Path& path) : path_(path) 
+{
+	Logger::logger()->log(LOG_DEBUG, "file content for" + path_.getAbsPath() + " here : \n" + this->read());
+}
 
 File::~File(void)
 {
@@ -63,6 +66,7 @@ std::string	File::read(void) const
     std::string         content;
     std::ifstream       fileStream(path_.getAbsPath().c_str());
 
+	Logger::logger()->log(LOG_INFO, "File Path in read function: " + path_.getAbsPath());
     if (fileStream.is_open())
         Logger::logger()->log(LOG_INFO, "File opened: " + path_.getAbsPath());
     while (std::getline(fileStream, line))

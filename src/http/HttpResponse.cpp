@@ -15,19 +15,19 @@
 
 HttpResponse::HttpResponse() {}
 
-HttpResponse::HttpResponse(File& file) 
+HttpResponse::HttpResponse(const File& file) 
 {
     body_ = file.read();
-    Logger::logger()->log(LOG_DEBUG, body_);
+    Logger::logger()->log(LOG_DEBUG, "file body in Response: \n" + body_);
     staticStatusLine();
     generateBasicHeaders();
     composeFullResponse();
 }
 
-HttpResponse::HttpResponse(ErrorPage& errorPage) 
+HttpResponse::HttpResponse(const ErrorPage& errorPage) 
 {
     body_ = errorPage.read();
-    Logger::logger()->log(LOG_DEBUG, body_);
+    Logger::logger()->log(LOG_DEBUG, "error body in Response: \n" + body_);
     errorStatusLine(errorPage);
     generateBasicHeaders();
     composeFullResponse();
@@ -102,7 +102,7 @@ std::string     HttpResponse::extractStatusText() const
     return ("Unknown Error");
 }
 
-void    HttpResponse::errorStatusLine(ErrorPage& errorPage)
+void    HttpResponse::errorStatusLine(const ErrorPage& errorPage)
 {
     std::string             statusText = extractStatusText();
     std::ostringstream      statusLine;

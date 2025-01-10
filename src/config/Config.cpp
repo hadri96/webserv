@@ -143,12 +143,16 @@ std::vector<ErrorPage>&	Config::getErrorPages(void)
 	return (errorPages_);
 }
 
-const ErrorPage	Config::getErrorPage(int statusCode)
+ErrorPage	Config::getErrorPage(int statusCode)
 {
-	for( std::vector<ErrorPage>::const_iterator it = errorPages_.begin(); it != errorPages_.end(); it++)
+	for (size_t i = 0; i < errorPages_.size(); ++i)
 	{
-		if (it->getErrorCode() == statusCode)
-			return (*it);
+	    if (errorPages_[i].getErrorCode() == statusCode)
+	    {
+			Logger::logger()->log(LOG_DEBUG, "error body: \n" + errorPages_[i].read());
+			Logger::logger()->log(LOG_DEBUG, "error  path: \n" + errorPages_[i].getErrorPath().getPath());
+			return (errorPages_[i]);
+		}
 	}
 	return (ErrorPage());
 }
@@ -171,10 +175,10 @@ const Path&	Config::getPathFromUri(Uri& uri) const
 	else
 		routeSegment = "";
 
-	for (std::vector<Route>::const_iterator it = routes_.begin(); it != routes_.end(); it++)
+	for (size_t i = 0; i < routes_.size(); ++i)
 	{
-		if (it->getRootPathString() == routeSegment)
-			return ((*it).getRootPath());
+	    if (routes_[i].getRootPathString() == routeSegment)
+	        return (routes_[i].getRootPath());
 	}
 	return (routes_[0].getRootPath());
 }

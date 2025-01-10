@@ -212,18 +212,18 @@ void	Server::registerClient(Client* client)
 
 void	Server::unregisterClient(Client* client)
 {
-	if (client)
-	{
-		delete client;
-		for (std::vector<Client*>::iterator it = clients_.begin(); it != clients_.end(); ++it)
-		{
-			if (*it == client)
-			{
-				clients_.erase(it);
-				break ;
-			}
-		}
-	}
+    if (client)
+    {
+        delete (client);
+        for (size_t i = 0; i < clients_.size(); ++i)
+        {
+            if (clients_[i] == client)
+            {
+                clients_.erase(clients_.begin() + i);
+                break;
+            }
+        }
+    }
 }
 
 void	Server::acceptClient(void)

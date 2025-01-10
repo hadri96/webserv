@@ -126,13 +126,13 @@ void	Observer::addSocketToMonitor(int fd, short events)
 
 void	Observer::removeSocketFromMonitor(int fd)
 {
-	for (std::vector<pollfd>::iterator it = fds_.begin(); it != fds_.end(); ++it)
+	for (size_t i = 0; i < fds_.size(); ++i)
 	{
-		if (it->fd == fd)
-		{
-			fds_.erase(it);
-			break ;
-		}
+	    if (fds_[i].fd == fd)
+	    {
+	        fds_.erase(fds_.begin() + i);
+	        break;
+	    }
 	}
 }
 

@@ -11,8 +11,8 @@ class HttpResponse
     public:
     // --- Constructors and Destructor ---
         HttpResponse();
-        HttpResponse(File& file);
-        HttpResponse(ErrorPage& errorPage);
+        HttpResponse(const File& file);
+        HttpResponse(const ErrorPage& errorPage);
         ~HttpResponse();
 
     // --- Public Methods ---
@@ -29,7 +29,7 @@ class HttpResponse
 
         // --- Error Response Methods ---
         std::string                 extractStatusText() const;
-        void                        errorStatusLine(ErrorPage& errorPage); 
+        void                        errorStatusLine(const ErrorPage& errorPage); 
         
         // --- Static Response Methods ---
         void                        staticStatusLine();

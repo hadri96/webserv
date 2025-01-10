@@ -37,8 +37,8 @@ class	Config
 		int								getClientMaxBodySize(void) const;
   
 		std::vector<ErrorPage>&			getErrorPages(void);
-	  std::vector<Route>&				getRoutes(void);
-		const ErrorPage					getErrorPage(int statusCode);							
+	  	std::vector<Route>&				getRoutes(void);
+		ErrorPage						getErrorPage(int statusCode);							
 		const Path&						getPathFromUri(Uri& uri) const;
 		HttpRedirection&				getHttpRedirection(void);
 		const Route&					getRoute(Uri uri);
